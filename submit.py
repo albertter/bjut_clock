@@ -43,7 +43,8 @@ def submit(s: requests.Session, old: dict):
         'sfzx': old['sfzx'],  # 在校
         'sfzgn': '1',  # 所在地点（1：大陆）
         # 'szdd': old['szdd'],  # 所在地点
-        'area': old['area'],  # 定位
+#         'area': old['area'],  # 定位
+        'area': '北京市  朝阳区',
         'dqjzzt': old['dqjzzt'],  # 居住状态
         # 'dqjzzt':'6',
         'tw': old['tw'],  # 体温
@@ -63,10 +64,17 @@ def submit(s: requests.Session, old: dict):
         'ismoved': old['ismoved'],  # 判断位置是否变化
 
         # 未解析（其中有定位信息）
-        'address': old['address'],
-        'province': old['province'],
-        'city': old['city'],
-        'old_city': old['old_city'],
+#         'address': old['address'],
+#         'province': old['province'],
+#         'city': old['city'],
+#         'old_city': old['old_city'],
+#         'geo_api_infot': old['geo_api_infot'],  # 可能为定位信息
+#         'sfyyjc': old['sfyyjc'],
+#         'app_id': 'bjut'
+        'address': '北京市朝阳区平乐园100号北京工业大学',
+        'province': '北京市',
+        'city': '北京市',
+        'old_city': '北京市',
         'geo_api_infot': old['geo_api_infot'],  # 可能为定位信息
         'sfyyjc': old['sfyyjc'],
         'app_id': 'bjut'
