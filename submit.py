@@ -35,62 +35,90 @@ def get_yesterday(s: requests.Session):
 
 
 def submit(s: requests.Session, old: dict):
-    new_daily = {
-        # 设置时区，获取时间（服务器未必在国内）
-        'date': datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d"),
-        'realname': old['realname'],
-        'number': old['number'],
-        'sfzx': old['sfzx'],  # 在校
-        'sfzgn': '1',  # 所在地点（1：大陆）
-        # 'szdd': old['szdd'],  # 所在地点
-#         'area': old['area'],  # 定位
-        'area': '北京市  朝阳区',
-        'dqjzzt': old['dqjzzt'],  # 居住状态
-        # 'dqjzzt':'6',
-        'tw': old['tw'],  # 体温
-        'sftjwh': old['sftjwh'],  # 经停武汉
-        'sftjhb': old['sftjhb'],  # 经停湖北除武汉
-        'sfcyglq': old['sfcyglq'],  # 观察期
-        # 'bztcyy': old['bztcyy'],  # 情况
-        'sfjcwhry': old['sfjcwhry'],  # 接触过其他到武汉的人
-        # 'jhfjsftjwh': old['jhfjsftjwh'],  # 接触过其他到武汉的人
-        'sfjchbry': old['sfjchbry'],  # 接触过其他到湖北的人
-        # 'jhfjsftjhb': old['jhfjsftjhb'],  # 接触过其他到湖北的人
-        'geo_api_info': old['old_city'],  # 定位信息
-        'jcjgqr': old['jcjgqr'],  # 属于以下哪种情况
-        'sfcxtz': old['sfcxtz'],  # 是否出现乏力..情况
-        'sfjcbh': old['sfjcbh'],  # 是否接触疑似人员
-        'sfcxzysx': old['sfcxzysx'],  # 值得注意情况
-        'ismoved': old['ismoved'],  # 判断位置是否变化
 
-        # 未解析（其中有定位信息）
-#         'address': old['address'],
-#         'province': old['province'],
-#         'city': old['city'],
-#         'old_city': old['old_city'],
-#         'geo_api_infot': old['geo_api_infot'],  # 可能为定位信息
-#         'sfyyjc': old['sfyyjc'],
-#         'app_id': 'bjut'
-        'address': '北京市朝阳区平乐园100号北京工业大学',
-        'province': '北京市',
-        'city': '北京市',
-        'old_city': '北京市',
-        'geo_api_infot': old['geo_api_infot'],  # 可能为定位信息
+    data = {
+        'ismoved': old['ismoved'],
+        'jhfjrq': old['jhfjrq'],
+        'jhfjjtgj': old['jhfjjtgj'],
+        'jhfjhbcc': old['jhfjhbcc'],
+        'sftjzgfxdq': old['sftjzgfxdq'],
+        'dqszyqfxdj': old['dqszyqfxdj'],
+        'tw': old['tw'],
+        'sfcxtz': old['sfcxtz'],
+        'sfjcbh': old['sfjcbh'],
+        'sfcxzysx': old['sfcxzysx'],
+        'qksm': old['qksm'],
         'sfyyjc': old['sfyyjc'],
-        'app_id': 'bjut'
+        'jcjgqr': old['jcjgqr'],
+        'remark': old['remark'],
+        'address': old['address'],
+        'geo_api_info': old['geo_api_info'],
+        'area': old['area'],
+        'province': old['province'],
+        'city': old['city'],
+        'sfzx': old['sfzx'],
+        'sfjcwhry': old['sfjcwhry'],
+        'sfjchbry': old['sfjchbry'],
+        'sfcyglq': old['sfcyglq'],
+        'gllx': old['gllx'],
+        'glksrq': old['glksrq'],
+        'jcbhlx': old['jcbhlx'],
+        'jcbhrq': old['jcbhrq'],
+        'bztcyy': old['bztcyy'],
+        'sftjhb': old['sftjhb'],
+        'sftjwh': old['sftjwh'],
+        'sfsfbh': old['sfsfbh'],
+        'xjzd': old['xjzd'],
+        'jcwhryfs': old['jcwhryfs'],
+        'jchbryfs': old['jchbryfs'],
+        'szgj': old['szgj'],
+        'dqjzzt': old['dqjzzt'],
+        'ljrq': old['ljrq'],
+        'ljjtgj': old['ljjtgj'],
+        'ljhbcc': old['ljhbcc'],
+        'fjrq': old['fjrq'],
+        'fjjtgj': old['fjjtgj'],
+        'fjhbcc': old['fjhbcc'],
+        'fjqszgj': old['fjqszgj'],
+        'fjq_province': old['fjq_province'],
+        'fjq_city': old['fjq_city'],
+        'fjq_szdz': old['fjq_szdz'],
+        'jrfjjtgj': old['jrfjjtgj'],
+        'jrfjhbcc': old['jrfjhbcc'],
+        'fjyy': old['fjyy'],
+        'szsqsfty': old['szsqsfty'],
+        'sfxxxbb': old['sfxxxbb'],
+        'jcjg': old['jcjg'],
+        'date': datetime.now(tz=pytz.timezone("Asia/Shanghai")).strftime("%Y%m%d"),
+        'uid': old['uid'],
+        'created': old['created'],
+        'id': old['id'],
+        'gwszdd': '',
+        'sfyqjzgc': '',
+        'jcqzrq': old['jcqzrq'],
+        'sfjcqz': old['sfjcqz'],
+        'jrsfqzys': '',
+        'jrsfqzfy': '',
+        'szsqsfybl': old['szsqsfybl'],
+        'sfsqhzjkk': old['sfsqhzjkk'],
+        'sqhzjkkys': old['sqhzjkkys'],
+        'sfygtjzzfj': old['sfygtjzzfj'],
+        'gtjzzfjsj': old['gtjzzfjsj']
     }
-    r = s.post("https://itsapp.bjut.edu.cn/ncov/wap/default/save", data=new_daily)
 
-    print("提交信息:", new_daily)
+    r = s.post("https://itsapp.bjut.edu.cn/ncov/wap/default/save", data=data)
+
     result = r.json()
+    # print(result)
+
     if result.get('m') == "操作成功":
-        print("打卡成功")
+        # print("打卡成功")
         if server_key != "":
-            send_message(server_key, result.get('m'), new_daily)
+            send_message(server_key, old['realname'] + result.get('m'), data)
     else:
-        print("打卡失败，错误信息: ", r.json().get("m"))
+        # print("打卡失败，错误信息: ", result.get("m"))
         if server_key != "":
-            send_message(server_key, result.get('m'), new_daily)
+            send_message(server_key, old['realname'] + result.get('m'), data)
 
 
 # 微信通知
